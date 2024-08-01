@@ -9,18 +9,29 @@ with open("in.txt", "r") as file:
         lines.append(line)
 
 
+yts = []
 for r in lines:
     yt = YouTube(r)
-
     stream = yt.streams.filter(only_audio=True).first()
-    output_file = stream.download(output_path="./out")
+    yts.append(stream)
 
-    base, ext = os.path.splitext(output_file)
-    new_file = base + ".mp3"
 
-    os.rename(output_file, new_file)
 
-    print(f"{yt.title} has been downlaoded!")
+print("Songs to be downloaded:\n-----")
+for r in yts:
+    print(r.title)
+
+if input("-----\nContinue? (y)") is "y":
+    for r in yts:
+        output_file = r.download(output_path="./out")
+
+        base, ext = os.path.splitext(output_file)
+        new_file = base + ".mp3"
+        os.rename(output_file, new_file)
+
+    print("All files have been downloaded!")
+else:
+    print("Aborted...")
     
 
 
