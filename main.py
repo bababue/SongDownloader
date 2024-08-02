@@ -17,11 +17,15 @@ for r in lines:
 
 
 
-print("Songs to be downloaded:\n-----")
+print("Songs to be downloaded:")
+
+print("-----")
 for r in yts:
     print(r.title)
+print("-----")
+confirm = input("Continue? (y)")
 
-if input("-----\nContinue? (y)") is "y":
+if confirm in ["y", "Y"]:
     for r in yts:
         output_file = r.download(output_path="./out")
 
@@ -31,7 +35,4 @@ if input("-----\nContinue? (y)") is "y":
 
     print("All files have been downloaded!")
 else:
-    print("Aborted...")
-    
-
-
+    quit()
